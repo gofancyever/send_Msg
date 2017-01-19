@@ -5,6 +5,7 @@ from .models import Document,DocumentForm
 import os
 from user import tool
 from django.core.urlresolvers import reverse
+
 def index(request):
     return render(request,'user/index.html')
 
