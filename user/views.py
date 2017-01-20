@@ -5,6 +5,7 @@ from .models import Document,DocumentForm
 import os
 from user import tool
 from django.contrib import auth
+from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required
 from django.template import RequestContext
@@ -55,8 +56,13 @@ def sign(request):
 '''========================================================='''
 #验证邮箱
 def validityemail(request):
-    email = request.POST.get('email')
-    return JsonResponse(email, safe=False)
+    if request.method == 'GET':
+        email = request.GET.get('email',None)
+        user = User.objects.filter(email=email).first()
+        if user is not None:
+            return JsonResponse({'msg':'存在用户'},safe=False)
+        else:
+            return JsonResponse({'msg':'不存在'}, safe=False)
 
 def upload_file(request):
     if request.method == 'POST':

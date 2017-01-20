@@ -44,11 +44,11 @@
                 <span class="tpl-login-content-info">
                   创建一个新的用户
               </span>
-                <form class="am-form tpl-form-line-form" data-am-validator  method="post">
+                <form id="form" class="am-form tpl-form-line-form" data-am-validator method="post">
                     <fieldset>
                     {% csrf_token %}
                     <div class="am-form-group">
-                        <input name="email" class="js-ajax-validate" type="email" id="doc-vld-ajax-count" placeholder="输入邮箱"  data-validate-async/>
+                        <input id="email" name="email" class="js-ajax-validate" type="email" id="doc-vld-ajax-count" placeholder="输入邮箱"  data-validate-async/>
                     </div>
 
                     <div class="am-form-group">
@@ -73,21 +73,21 @@
     </div>
 
     <script type="text/javascript">
-    $(function() {
-  $('#doc-vld-ajax').validator({
+$(function() {
+  $('#form').validator({
     validate: function(validity) {
       var v = $(validity.field).val();
-        var comment_form = {email:v}
+
       // Ajax 验证
       if ($(validity.field).is('.js-ajax-validate')) {
         // 异步操作必须返回 Deferred 对象
         return $.ajax({
             url: '/user/validityemail/',
-            type:'post',
+            data:{email:c},
           // cache: false, 实际使用中请禁用缓存
-            data:comment_form
+            dataType: 'json'
         }).then(function(data) {
-            log(data)
+          comparer(data.count, v);
           return validity;
         }, function() {
           return validity;
@@ -96,6 +96,16 @@
     }
   });
 });
+{#        c=$("#email").val()#}
+{#           $.ajax({#}
+{#                type:"GET",#}
+{#                url:"/user/validityemail/",#}
+{#                data:{email:c},#}
+{#                dataType:"json",#}
+{#                success: function(data) {#}
+{#                    $("#p").text(data.msg)#}
+{#                }#}
+{#            });#}
 
     </script>
     <script src="{% static "assets/js/amazeui.min.js" %}"></script>
