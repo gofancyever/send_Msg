@@ -9,7 +9,7 @@ from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required
 from django.template import RequestContext
 from django.contrib.auth.forms import UserCreationForm
-
+from django.http import JsonResponse
 
 '''========================================================='''
 #首页
@@ -47,12 +47,16 @@ def sign(request):
         form = UserCreationForm(request.POST)
         if form.is_valid():
             user = form.save()
-            return HttpResponseRedirect('/login/')
+            return HttpResponseRedirect('/user/login/')
     else:
         form = UserCreationForm()
     return render(request,'user/sign-up.html')
 
-
+'''========================================================='''
+#验证邮箱
+def validityemail(request):
+    email = request.POST.get('email')
+    return JsonResponse(email, safe=False)
 
 def upload_file(request):
     if request.method == 'POST':

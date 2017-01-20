@@ -44,12 +44,11 @@
                 <span class="tpl-login-content-info">
                   创建一个新的用户
               </span>
-
-                        <h1>注册新账号</h1>
-                <form class="am-form tpl-form-line-form"  method="post">
+                <form class="am-form tpl-form-line-form" data-am-validator  method="post">
+                    <fieldset>
                     {% csrf_token %}
                     <div class="am-form-group">
-                        <input name="email" type="email" id="doc-vld-email-2" placeholder="输入邮箱" required/>
+                        <input name="email" class="js-ajax-validate" type="email" id="doc-vld-ajax-count" placeholder="输入邮箱"  data-validate-async/>
                     </div>
 
                     <div class="am-form-group">
@@ -57,11 +56,11 @@
                     </div>
 
                     <div class="am-form-group">
-                         <input name="password1" type="password" id="doc-vld-pwd-1 id_password1" placeholder="8 位数字的密码"  required/>
+                         <input name="password1" type="password" id="doc-vld-pwd-1" pattern="[0-9a-zA-Z]{8,12}" placeholder="8到12 位数字和字母组合"  required/>
                     </div>
 
                     <div class="am-form-group">
-                        <input name="password2" type="password" id="doc-vld-pwd-2 id_password2" placeholder="请与上面输入的值一致"  required/>
+                        <input name="password2" type="password" id="doc-vld-pwd-2 id_password2" data-equal-to="#doc-vld-pwd-1" placeholder="请与上面输入的值一致"  required/>
                     </div>
                     <div class="am-form-group">
                         <button type="submit"  class="am-btn am-btn-primary  am-btn-block tpl-btn-bg-color-success  tpl-login-btn">提交</button>
@@ -73,7 +72,32 @@
 
     </div>
 
+    <script type="text/javascript">
+    $(function() {
+  $('#doc-vld-ajax').validator({
+    validate: function(validity) {
+      var v = $(validity.field).val();
+        var comment_form = {email:v}
+      // Ajax 验证
+      if ($(validity.field).is('.js-ajax-validate')) {
+        // 异步操作必须返回 Deferred 对象
+        return $.ajax({
+            url: '/user/validityemail/',
+            type:'post',
+          // cache: false, 实际使用中请禁用缓存
+            data:comment_form
+        }).then(function(data) {
+            log(data)
+          return validity;
+        }, function() {
+          return validity;
+        });
+      }
+    }
+  });
+});
 
+    </script>
     <script src="{% static "assets/js/amazeui.min.js" %}"></script>
     <script src="{% static "assets/js/app.js" %}"></script>
 
