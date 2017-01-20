@@ -13,7 +13,7 @@ from django.contrib.auth.forms import UserCreationForm
 
 '''========================================================='''
 #首页
-@login_required
+@login_required(login_url='/user/login/')
 def index(request):
     return render_to_response('user/index.html',locals())
 
@@ -22,7 +22,7 @@ def index(request):
 #登录
 def login(request):
     if request.user.is_authenticated():
-        return HttpResponseRedirect('index')
+        return HttpResponseRedirect('/user/index/')
     username = request.POST.get('username', '')
     password = request.POST.get('password', '')
 
@@ -30,10 +30,15 @@ def login(request):
 
     if user is not None and user.is_active:
         auth.login(request, user)
-        return HttpResponseRedirect('/index/')
+        return HttpResponseRedirect('/user/index/')
     else:
         return render(request,'user/login.html')
 
+'''========================================================='''
+#登出
+def logout(request):
+    auth.logout(request)
+    return HttpResponseRedirect('/user/login/')
 
 '''========================================================='''
 #注册
