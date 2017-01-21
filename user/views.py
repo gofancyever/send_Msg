@@ -64,6 +64,11 @@ def validityemail(request):
         else:
             return JsonResponse({'msg':0}, safe=False)
 
+'''========================================================='''
+#忘记密码
+def forgetpassword(request):
+    pass
+
 def upload_file(request):
     if request.method == 'POST':
         form = DocumentForm(request.POST, request.FILES)
