@@ -4,3 +4,7 @@
 *.xml
 
 *.xml
+
+.idea/workspace.xml
+
+.idea/misc.xml

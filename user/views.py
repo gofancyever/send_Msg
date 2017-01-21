@@ -60,9 +60,9 @@ def validityemail(request):
         email = request.GET.get('email',None)
         user = User.objects.filter(email=email).first()
         if user is not None:
-            return JsonResponse({'msg':'存在用户'},safe=False)
+            return JsonResponse({'msg':1},safe=False)
         else:
-            return JsonResponse({'msg':'不存在'}, safe=False)
+            return JsonResponse({'msg':0}, safe=False)
 
 def upload_file(request):
     if request.method == 'POST':

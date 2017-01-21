@@ -48,7 +48,8 @@
                     <fieldset>
                     {% csrf_token %}
                     <div class="am-form-group">
-                        <input id="email" name="email" class="js-ajax-validate" type="email" id="doc-vld-ajax-count" placeholder="输入邮箱"  data-validate-async/>
+                        <input id="id_email_input" name="email" class="js-ajax-validate" type="email"  placeholder="输入邮箱" required/>
+                        <span id="p" style="color: red"></span>
                     </div>
 
                     <div class="am-form-group">
@@ -74,38 +75,40 @@
 
     <script type="text/javascript">
 $(function() {
-  $('#form').validator({
+  $('form').validator({
     validate: function(validity) {
-      var v = $(validity.field).val();
+        console.log(validity)
+        if ($(validity.field).is('#id_email_input')){
+            var v = $(validity.field).val();
+            if (validity.valid){
+                return $.ajax({
+                    type:"GET",
+                    url:"/user/validityemail/",
+                    data:{email:v},
+                    dataType:"json"
+                }).then(function (data) {
+                    if (data['msg']){
+                        $("#p").text("账号已存在");
+                        validity.valid = false
+                    }else{
+                        $("#p").text("可以注册");
+                        validity.valid = true
+                    }
+                    return validity
+                },function () {
+                    return validity
+                })
+            }
+        }
 
-      // Ajax 验证
-      if ($(validity.field).is('.js-ajax-validate')) {
-        // 异步操作必须返回 Deferred 对象
-        return $.ajax({
-            url: '/user/validityemail/',
-            data:{email:c},
-          // cache: false, 实际使用中请禁用缓存
-            dataType: 'json'
-        }).then(function(data) {
-          comparer(data.count, v);
-          return validity;
-        }, function() {
-          return validity;
-        });
-      }
+
+
     }
   });
 });
-{#        c=$("#email").val()#}
-{#           $.ajax({#}
-{#                type:"GET",#}
-{#                url:"/user/validityemail/",#}
-{#                data:{email:c},#}
-{#                dataType:"json",#}
-{#                success: function(data) {#}
-{#                    $("#p").text(data.msg)#}
-{#                }#}
-{#            });#}
+
+
+
 
     </script>
     <script src="{% static "assets/js/amazeui.min.js" %}"></script>
