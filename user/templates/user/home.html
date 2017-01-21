@@ -1,158 +1,195 @@
 <!-- 内容区域 -->
 <div class="tpl-content-wrapper">
 
-            <div class="container-fluid am-cf">
-                <div class="row">
-                    <div class="am-u-sm-12 am-u-md-12 am-u-lg-9">
-                        <div class="page-header-heading"><span class="am-icon-home page-header-heading-icon"></span> 表格 <small>Amaze UI</small></div>
-                        <p class="page-header-description">Amaze UI 有许多不同的表格可用。</p>
-                    </div>
-                    <div class="am-u-lg-3 tpl-index-settings-button">
-                        <button type="button" class="page-header-button"><span class="am-icon-paint-brush"></span> 设置</button>
-                    </div>
+    <div class="container-fluid am-cf">
+        <div class="row">
+            <div class="am-u-sm-12 am-u-md-12 am-u-lg-9">
+                <div class="page-header-heading"><span class="am-icon-home page-header-heading-icon"></span> 表格
+                    <small>Amaze UI</small>
                 </div>
+                <p class="page-header-description">Amaze UI 有许多不同的表格可用。</p>
             </div>
-            <div class="row-content am-cf">
-                <div class="row">
-                    <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
-                        <div class="widget am-cf">
-                            <div class="widget-head am-cf">
-                                <div class="am-form-group am-form-file">
-                                    <button type="button" class="am-btn am-btn-danger am-btn-sm">
-                                        <i class="am-icon-cloud-upload"></i> 选择要上传的文件</button>
-                                    <input id="doc-form-file" type="file" multiple>
-                                    <div id="file-list"></div>
-                                </div>
-                                <script>
-                                      $(function() {
-                                        $('#doc-form-file').on('change', function() {
-                                          var fileNames = '';
-                                          $.each(this.files, function() {
-                                            fileNames += '<span class="am-badge">' + this.name + '</span> ';
-                                          });
-                                          $('#file-list').html(fileNames);
-                                        });
-                                      });
-                                    </script>
-                                <div class="widget-function am-fr">
-                                    <div class="am-form-group">
-                                        <div class="am-btn-toolbar">
-                                            <div class="am-btn-group am-btn-group-xs">
-                                                <button type="button" class="am-btn am-btn-default am-btn-success"><span class="am-icon-plus"></span> 新增</button>
-                                                <button type="button" class="am-btn am-btn-default am-btn-secondary"><span class="am-icon-save"></span> 保存</button>
-                                                <button type="button" class="am-btn am-btn-default am-btn-warning"><span class="am-icon-archive"></span> 审核</button>
-                                                <button type="button" class="am-btn am-btn-default am-btn-danger"><span class="am-icon-trash-o"></span> 删除</button>
-                                            </div>
-                                        </div>
+            <div class="am-u-lg-3 tpl-index-settings-button">
+                <button type="button" class="page-header-button"><span class="am-icon-paint-brush"></span> 设置</button>
+            </div>
+        </div>
+    </div>
+    <div class="row-content am-cf">
+        <div class="row">
+            <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+                <div class="widget am-cf">
+                    <div class="widget-head am-cf">
+                        <div class="am-form-group am-form-file">
+                            <button type="button" class="am-btn am-btn-danger am-btn-sm">
+                                <i class="am-icon-cloud-upload"></i> 选择要上传的文件
+                            </button>
+                            <input id="doc-form-file" type="file" multiple>
+                            <div id="file-list"></div>
+                        </div>
+                        <script>
+                            $(function () {
+                                $('#doc-form-file').on('change', function () {
+                                    var fileNames = '';
+                                    $.each(this.files, function () {
+                                        fileNames += '<span class="am-badge">' + this.name + '</span> ';
+                                    });
+                                    $('#file-list').html(fileNames);
+                                });
+                            });
+                        </script>
+                        <div class="widget-function am-fr">
+                            <div class="am-form-group">
+                                <div class="am-btn-toolbar">
+                                    <div class="am-btn-group am-btn-group-xs">
+                                        <button type="button" class="am-btn am-btn-default am-btn-success"><span
+                                                class="am-icon-plus"></span> 新增
+                                        </button>
+                                        <button type="button" class="am-btn am-btn-default am-btn-secondary"><span
+                                                class="am-icon-save"></span> 保存
+                                        </button>
+                                        <button type="button" class="am-btn am-btn-default am-btn-warning"><span
+                                                class="am-icon-archive"></span> 审核
+                                        </button>
+                                        <button type="button" class="am-btn am-btn-default am-btn-danger"><span
+                                                class="am-icon-trash-o"></span> 删除
+                                        </button>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="widget-body  widget-body-lg am-fr">
-                                <div class="am-scrollable-vertical">
-                                    <table width="100%" class="am-table am-table-compact tpl-table-black " id="example-r">
-                                    <thead>
-                                        <tr>
-                                            <th>文章标题</th>
-                                            <th>作者</th>
-                                            <th>时间</th>
-                                            <th>操作</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr class="gradeX">
-                                            <td>Amaze UI 模式窗口</td>
-                                            <td>张鹏飞</td>
-                                            <td>2016-09-26</td>
-                                            <td>
-                                                <div class="tpl-table-black-operation">
-                                                    <a href="javascript:;">
-                                                        <i class="am-icon-pencil"></i> 编辑
-                                                    </a>
-                                                    <a href="javascript:;" class="tpl-table-black-operation-del">
-                                                        <i class="am-icon-trash"></i> 删除
-                                                    </a>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr class="even gradeC">
-                                            <td>关于input输入框的问题</td>
-                                            <td>着迷</td>
-                                            <td>2016-09-26</td>
-                                            <td>
-                                                <div class="tpl-table-black-operation">
-                                                    <a href="javascript:;">
-                                                        <i class="am-icon-pencil"></i> 编辑
-                                                    </a>
-                                                    <a href="javascript:;" class="tpl-table-black-operation-del">
-                                                        <i class="am-icon-trash"></i> 删除
-                                                    </a>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr class="even gradeC">
-                                            <td>关于input输入框的问题</td>
-                                            <td>着迷</td>
-                                            <td>2016-09-26</td>
-                                            <td>
-                                                <div class="tpl-table-black-operation">
-                                                    <a href="javascript:;">
-                                                        <i class="am-icon-pencil"></i> 编辑
-                                                    </a>
-                                                    <a href="javascript:;" class="tpl-table-black-operation-del">
-                                                        <i class="am-icon-trash"></i> 删除
-                                                    </a>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <!-- more data -->
-                                    </tbody>
-                                </table>
-                                </div>
-                            </div>
-                            <div class="widget-body widget-body-lg am-fr">
-                                <form class="am-form-inline" role="form">
-                                      <div class="am-form-group">
-                                        <input type="email" class="am-form-field" placeholder="电话">
-                                      </div>
-                                      <div class="am-form-group">
-
-                                        <input type="email" class="am-form-field" placeholder="电子邮件">
-                                      </div>
-                                      <div class="am-form-group">
-                                        <input type="password" class="am-form-field" placeholder="密码">
-                                      </div>
-
-                                      <div class="am-checkbox">
-                                        <label>
-                                          <input type="checkbox"> 记住我
-                                        </label>
-                                      </div>
-                                      <button type="submit" class="am-btn am-btn-default">登录</button>
-                                    </form>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
-                        <div class="widget am-cf">
-                            <div class="widget-body am-fr">
-                                <form class="am-form tpl-form-border-form">
-                                    <div class="am-form-group">
-                                        <label for="user-intro" class="am-u-sm-12 am-form-label  am-text-left">发送内容</label>
-                                        <div class="am-u-sm-12 am-margin-top-xs">
-                                            <textarea class="" rows="10" id="user-intro" placeholder="请输入发送内容"></textarea>
+                    <div class="widget-body  widget-body-lg am-fr">
+                        <div class="am-scrollable-vertical">
+                            <table width="100%" class="am-table am-table-compact tpl-table-black " id="example-r">
+                                <thead>
+                                <tr>
+                                    <th>电话号</th>
+                                    <th>姓名</th>
+                                    <th>时间</th>
+                                    <th>操作</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="gradeX">
+                                    <td>Amaze UI 模式窗口</td>
+                                    <td>张鹏飞</td>
+                                    <td>2016-09-26</td>
+                                    <td>
+                                        <div class="tpl-table-black-operation">
+                                            <a href="javascript:;">
+                                                <i class="am-icon-pencil"></i> 编辑
+                                            </a>
+                                            <a href="javascript:;" class="tpl-table-black-operation-del">
+                                                <i class="am-icon-trash"></i> 删除
+                                            </a>
                                         </div>
-                                    </div>
-                                    <div class="am-form-group">
-                                        <div class="am-u-sm-12 am-u-sm-push-12">
-                                            <button type="button" class="am-btn am-btn-primary tpl-btn-bg-color-success ">发送</button>
+                                    </td>
+                                </tr>
+                                <tr class="even gradeC">
+                                    <td>关于input输入框的问题</td>
+                                    <td>着迷</td>
+                                    <td>2016-09-26</td>
+                                    <td>
+                                        <div class="tpl-table-black-operation">
+                                            <a href="javascript:;">
+                                                <i class="am-icon-pencil"></i> 编辑
+                                            </a>
+                                            <a href="javascript:;" class="tpl-table-black-operation-del">
+                                                <i class="am-icon-trash"></i> 删除
+                                            </a>
                                         </div>
-                                    </div>
-                                </form>
-                            </div>
+                                    </td>
+                                </tr>
+                                <tr class="even gradeC">
+                                    <td>关于input输入框的问题</td>
+                                    <td>着迷</td>
+                                    <td>2016-09-26</td>
+                                    <td>
+                                        <div class="tpl-table-black-operation">
+                                            <a href="javascript:;">
+                                                <i class="am-icon-pencil"></i> 编辑
+                                            </a>
+                                            <a href="javascript:;" class="tpl-table-black-operation-del">
+                                                <i class="am-icon-trash"></i> 删除
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <!-- more data -->
+                                </tbody>
+                            </table>
                         </div>
+                    </div>
+                    <div class="widget-body widget-body-lg am-fr">
+                        <form class="am-form-inline" role="form">
+                            <div class="am-form-group">
+                                <input type="email" class="am-form-field" placeholder="电话">
+                            </div>
+                            <div class="am-form-group">
+
+                                <input type="email" class="am-form-field" placeholder="电子邮件">
+                            </div>
+                            <div class="am-form-group">
+                                <input type="password" class="am-form-field" placeholder="密码">
+                            </div>
+
+                            <div class="am-checkbox">
+                                <label>
+                                    <input type="checkbox"> 记住我
+                                </label>
+                            </div>
+                            <button type="submit" class="am-btn am-btn-default">登录</button>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
+        <div class="row">
+            <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+                <div class="widget am-cf">
+                    <div class="widget-body am-fr">
+                        <form class="am-form tpl-form-border-form">
+                            <div class="am-form-group">
+                                <label for="user-intro" class="am-u-sm-12 am-form-label  am-text-left">发送内容</label>
+                                <div class="am-u-sm-12 am-margin-top-xs">
+                                    <textarea class="" rows="10" id="user-intro" placeholder="请输入发送内容"></textarea>
+                                </div>
+                            </div>
+                            <div class="am-form-group">
+                                <div class="am-u-sm-12 am-u-sm-push-12">
+                                    <button type="button" class="am-btn am-btn-primary tpl-btn-bg-color-success ">发送
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+                        $(function () {
+                            $('table td').click(function () {
+                                if (!$(this).is('.input')) {
+                                    $(this).addClass('input').html('<input type="text" value="' + $(this).text() + '" />').find('input').focus().blur(function () {
+                                        var thisid = $(this).parent().siblings("th:eq(0)").text();
+                                        var thisvalue = $(this).val();
+                                        var thisclass = $(this).parent().attr("class");
+
+                                        $.ajax({
+                                            type: 'POST',
+                                            url: 'update.php',
+                                            data: "thisid=" + thisid + "&thisclass=" + thisclass + "&thisvalue=" + thisvalue
+                                        });
+                                        $(this).parent().removeClass('input').html($(this).val() || 0);
+                                    });
+                                }
+                            }).hover(function () {
+                                $(this).addClass('hover');
+                            }, function () {
+                                $(this).removeClass('hover');
+                            });
+
+                        });
+</script>
