@@ -1,7 +1,7 @@
 # coding:utf-8
 from django.http import HttpResponse,HttpResponseRedirect
 from django.shortcuts import render,render_to_response
-from .models import Document,DocumentForm
+from .models import Document,DocumentForm,User_info
 import os
 from user import tool
 from django.contrib import auth
@@ -85,3 +85,33 @@ def upload_file(request):
         form = DocumentForm()
     documents = Document.objects.all()
     return render(request, 'user/send-msg.html', {'form': form,'documents': documents})
+
+'''========================================================='''
+#发送信息
+def sendMsg(request):
+    if request.method == 'POST':
+        #验证登录用户合法性
+        if request.user.is_authenticated():
+            #取当前用户可发送条数
+            user = request.user
+            msg = request.POST.get('msg')
+            phone = request.POST.get('phone')
+            name = request.POST.get('name')
+            time = request.POST.get('time')
+
+        #取发送内容
+
+
+        #取发送联系人
+
+        #发送
+
+        #返回结果
+            return JsonResponse({'msg':0}, safe=False)
+    return JsonResponse({'msg':0}, safe=False)
+
+
+def send_msg_privte(user,msg,phone,name,time):
+    canSendNum = user.user_info.canSendNum
+    #发送信息
+    return 200

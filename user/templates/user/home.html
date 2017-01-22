@@ -60,7 +60,7 @@
                     </div>
                     <div class="widget-body  widget-body-lg am-fr">
                         <div class="am-scrollable-vertical">
-                            <table width="100%" class="am-table am-table-compact tpl-table-black " id="table-users">
+                            <table width="100%" class="am-table am-table-compact tpl-table-black ">
                                 <thead>
                                 <tr>
                                     <th>电话号</th>
@@ -70,76 +70,32 @@
                                 </tr>
                                 </thead>
                                 <tbody id="table-users-content">
-                                <tr class="gradeX">
-                                    <td>Amaze UI 模式窗口</td>
-                                    <td>张鹏飞</td>
-                                    <td>2016-09-26</td>
-                                    <td>
-                                        <div class="tpl-table-black-operation">
-                                            <a href="javascript:;" class="tpl-table-black-operation-del">
-                                                <i class="am-icon-trash"></i> 删除
-                                            </a>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr class="even gradeC">
-                                    <td>关于input输入框的问题</td>
-                                    <td>着迷</td>
-                                    <td>2016-09-26</td>
-                                    <td>
-                                        <div class="tpl-table-black-operation">
-                                            <a href="javascript:;" class="tpl-table-black-operation-del">
-                                                <i class="am-icon-trash"></i> 删除
-                                            </a>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr class="even gradeC">
-                                    <td>关于input输入框的问题</td>
-                                    <td>着迷</td>
-                                    <td>2016-09-26</td>
-                                    <td>
-                                        <div class="tpl-table-black-operation">
-                                            <a href="javascript:;" class="tpl-table-black-operation-del">
-                                                <i class="am-icon-trash"></i> 删除
-                                            </a>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <!-- more data -->
                                 </tbody>
                             </table>
                         </div>
                     </div>
-                    <div class="widget-body widget-body-lg am-fr">
+                    <div class="widget-head widget-body-lg am-footer">
                         <form id="form-add-new-user" class="am-form-inline" role="form" width="100%">
                             <div class="am-form-group">
                                 <input name="phone" type="text" class="am-form-field" placeholder="电话">
                             </div>
                             <div class="am-form-group">
-
                                 <input name="name" type="text" class="am-form-field" placeholder="姓名">
                             </div>
                             <button type="button" id="btn-add-new-user" class="am-btn am-btn-default">添加</button>
                         </form>
                     </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
-                <div class="widget am-cf">
                     <div class="widget-body am-fr">
-                        <form class="am-form tpl-form-border-form">
+                        <form class="am-form tpl-form-border-form" id="form-send-content">
                             <div class="am-form-group">
                                 <label for="user-intro" class="am-u-sm-12 am-form-label  am-text-left">发送内容</label>
                                 <div class="am-u-sm-12 am-margin-top-xs">
-                                    <textarea class="" rows="10" id="user-intro" placeholder="请输入发送内容"></textarea>
+                                    <textarea name="text-content" class="" rows="10" id="send-content" placeholder="请输入发送内容"></textarea>
                                 </div>
                             </div>
                             <div class="am-form-group">
                                 <div class="am-u-sm-12 am-u-sm-push-12">
-                                    <button type="button" class="am-btn am-btn-primary tpl-btn-bg-color-success ">发送
+                                    <button type="button" id="btn-send" class="am-btn am-btn-primary tpl-btn-bg-color-success ">发送
                                     </button>
                                 </div>
                             </div>
@@ -235,9 +191,8 @@
             //按钮
             var td_buttons = $('<td></td>');
             var btn_div = $('<div></div>').addClass('tpl-table-black-operation');
-            var btn_a1 = $('<a></a>').addClass('tpl-table-black-operation-del').text('删除');
+            var btn_a1 = $('<a></a>').addClass('tpl-table-black-operation-del').text('删除 ');
             var btn_i1 = $('<i></i>').addClass('am-icon-trash');
-
 
             td_buttons.append(btn_div);
             btn_div.append(btn_a1);
@@ -251,7 +206,41 @@
             var data = getFormJson(form_tag);
             console.log(data);
             addTableTr(data)
-        })
+        });
+        //删除联系人
+        $(document).on('click','.tpl-table-black-operation-del',function () {
+            $(this).parents('tr').remove()
+        });
 
+
+        function sendMsg(phone,name,msg,time) {
+            $.ajax({
+                    type:"POST",
+                    url:"/user/sendmsg/",
+                    data:{
+                        send_content:msg,
+                        send_phone:phone,
+                        send_time:time,
+                        send_name:name
+                            },
+                    dataType:"json"
+                }).then(function (data) {
+                    if (data['msg']){
+                        $("#p").text("账号已存在");
+                    }else{
+                        $("#p").text("可以注册");
+                    }
+
+                },function () {
+
+                })
+        }
+        $('#btn-send').click(function () {
+            var form_tag = $('#form-send-content');
+            var data = getFormJson(form_tag);
+
+            sendMsg(110,'gaof','haha','2016.11.12');
+
+        })
     });
 </script>

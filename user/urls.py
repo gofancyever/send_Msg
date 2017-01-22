@@ -13,6 +13,7 @@ urlpatterns = [
     url(r'^validityemail',views.validityemail),#验证邮箱
     url(r'^sign',views.sign),#注册
     url(r'^index/$',views.index),#主页
+    url(r'^sendmsg/$',views.sendMsg),#发送信息
     # url(r'^forgetpassword/$',views.forgetpassword),#忘记密码
 
     url(r'^testSend',views.upload_file, name='list'),
