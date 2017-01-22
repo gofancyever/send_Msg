@@ -77,7 +77,6 @@
 $(function() {
   $('form').validator({
     validate: function(validity) {
-        console.log(validity)
         if ($(validity.field).is('#id_email_input')){
             var v = $(validity.field).val();
             if (validity.valid){
