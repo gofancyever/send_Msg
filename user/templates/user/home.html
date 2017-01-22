@@ -1,4 +1,4 @@
-<!-- 内容区域 -->
+4<!-- 内容区域 -->
 <div class="tpl-content-wrapper">
 
     <div class="container-fluid am-cf">
@@ -171,7 +171,7 @@
 <script type="text/javascript">
                         $(function () {
                             $('table td').click(function () {
-                                if (!$(this).is('.input')) {
+                                if (!$(this).is('.input') && $(this).children('div').length==0) {
                                     $(this).addClass('input').html('<input type="text" value="' + $(this).text() + '" />').find('input').focus().blur(function () {
                                         var thisid = $(this).parent().siblings("th:eq(0)").text();
                                         var thisvalue = $(this).val();
