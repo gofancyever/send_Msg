@@ -4,6 +4,8 @@ from django.shortcuts import render,render_to_response
 from .models import Document,DocumentForm,User_info
 import os
 from user import tool
+from user.form import SendMsgForm
+
 from django.contrib import auth
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
@@ -94,24 +96,20 @@ def sendMsg(request):
         if request.user.is_authenticated():
             #取当前用户可发送条数
             user = request.user
-            msg = request.POST.get('msg')
-            phone = request.POST.get('phone')
-            name = request.POST.get('name')
-            time = request.POST.get('time')
-
-        #取发送内容
-
-
-        #取发送联系人
-
-        #发送
-
-        #返回结果
-            return JsonResponse({'msg':0}, safe=False)
-    return JsonResponse({'msg':0}, safe=False)
+            form = SendMsgForm(request.POST,request.FILES)
+            if form.is_valid():
+                cd = form.cleaned_data
+                result = send_msg_privte(user,cd['send_content'],cd['send_phone'],cd['send_name'],cd['send_time'])
+                return JsonResponse({'msg':result}, safe=False)
+            return JsonResponse({'msg': 400}, safe=False)
+        return JsonResponse({'msg': 401}, safe=False)
+    return JsonResponse({'msg':402}, safe=False)
 
 
 def send_msg_privte(user,msg,phone,name,time):
     canSendNum = user.user_info.canSendNum
+    if not canSendNum>0 :
+        return 300
+
     #发送信息
     return 200

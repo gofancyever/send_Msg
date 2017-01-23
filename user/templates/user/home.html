@@ -145,7 +145,6 @@
                     var thisid = $(this).parent().siblings("th:eq(0)").text();
                     var thisvalue = $(this).val();
                     var thisclass = $(this).parent().attr("class");
-
                     $.ajax({
                         type: 'POST',
                         url: 'update.php',
@@ -180,16 +179,16 @@
 
             var tr = $("<tr></tr>").addClass('even gradeC');
             //姓名
-            var td_name = $('<td></td>').text(dict['name']);
+            var td_name = $('<td></td>').text(dict['name']).attr('id','name');
             //电话
-            var td_phone = $('<td></td>').text(dict['phone']);
+            var td_phone = $('<td></td>').text(dict['phone']).attr('id','phone');
             //日期
             var date = new Date();
             var dateStr = date.Format("yyyy-MM-dd hh:mm:ss");
-            var td_time = $('<td></td>').text(dateStr);
+            var td_time = $('<td></td>').text(dateStr).attr('id','time');
 
             //按钮
-            var td_buttons = $('<td></td>');
+            var td_buttons = $('<td></td>').attr('id','operation');
             var btn_div = $('<div></div>').addClass('tpl-table-black-operation');
             var btn_a1 = $('<a></a>').addClass('tpl-table-black-operation-del').text('删除 ');
             var btn_i1 = $('<i></i>').addClass('am-icon-trash');
@@ -204,7 +203,6 @@
         $('#btn-add-new-user').click(function () {
             var form_tag = $('#form-add-new-user');
             var data = getFormJson(form_tag);
-            console.log(data);
             addTableTr(data)
         });
         //删除联系人
@@ -214,6 +212,8 @@
 
 
         function sendMsg(phone,name,msg,time) {
+            console.log(phone,name,msg,time);
+            return true;
             $.ajax({
                     type:"POST",
                     url:"/user/sendmsg/",
@@ -236,10 +236,32 @@
                 })
         }
         $('#btn-send').click(function () {
-            var form_tag = $('#form-send-content');
-            var data = getFormJson(form_tag);
 
-            sendMsg(110,'gaof','haha','2016.11.12');
+            //发送内容
+            var send_content_tag = $('#form-send-content');
+            var send_content = getFormJson(send_content_tag);
+            //发送人
+            $('#table-users-content').children('tr').each(function () {
+                //发送请求
+                var name = $(this).find('td#name').text();
+                var phone = $(this).find('td#phone').text();
+                var time = $(this).find('td#time').text();
+
+                //改变样式
+                var td_button = $(this).find('td#operation').children();
+                td_button.replaceWith('<i class="am-icon-spinner am-icon-pulse"></i>');
+                var result = sendMsg(phone,name,send_content['text_content'],time);
+                if (result){
+                    $(this).find('td#operation').children().replaceWith('<i style="color: green">√</i>');
+                }else{
+                    $(this).find('td#operation').children().replaceWith('<i style="color: red">×</i>');
+                }
+
+
+            });
+
+
+
 
         })
     });
