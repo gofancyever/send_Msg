@@ -81,7 +81,7 @@ def upload_file(request):
             baseDir = os.path.dirname(os.path.abspath(__name__))
             filename = os.path.join(baseDir, newdoc.docfile.name)
             json = tool.loadxl(filename)
-            return json
+            return JsonResponse(json,safe=False)
 
     else:
         form = DocumentForm()
