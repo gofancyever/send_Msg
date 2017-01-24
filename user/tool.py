@@ -29,28 +29,33 @@ def formatData(datas,code,msg):
         "msg":msg
     }
     if datas:
-        dict = {"data":datas}
-        dictMerged = dict(dictMerged,**dict)
-    return json.dumps(dictMerged)
+        dictMerged['data'] = datas
+    return dictMerged
 
 
 def loadxl(path):
-    data = xlrd.open_workbook(path)
-    allData = []
-    for table in data.sheets():
-        nrows = table.nrows
-        ncols = table.ncols #列数
-        arrDict = []
-        for i in range(nrows):
-            phone = ""
-            name = ""
-            for data in table.row_values(i):
-                if verifyPhone(data):
-                    phone = data
-                if verifyName(str(data)):
-                    name = data
-            if name and phone:
-                dict = {name:phone}
-                arrDict.append(dict)
-        allData += arrDict
-    return formatData(allData,200,'success')
+    resultDict = None
+    try:
+        data = xlrd.open_workbook(path)
+        allData = []
+        for table in data.sheets():
+            nrows = table.nrows
+            ncols = table.ncols #列数
+            arrDict = []
+            for i in range(nrows):
+                phone = ""
+                name = ""
+                for data in table.row_values(i):
+                    if verifyPhone(data):
+                        phone = data
+                    if verifyName(str(data)):
+                        name = data
+                if name and phone:
+                    dict = {'name':name,'phone':phone}
+                    arrDict.append(dict)
+            allData += arrDict
+            resultDict = formatData(allData,200,'success')
+    except:
+        resultDict = formatData(None,500,'文件格式不正确')
+
+    return resultDict

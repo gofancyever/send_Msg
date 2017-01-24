@@ -71,23 +71,19 @@ def validityemail(request):
 def forgetpassword(request):
     pass
 
+@login_required
 def upload_file(request):
     if request.method == 'POST':
-        form = DocumentForm(request.POST, request.FILES)
-        if form.is_valid():
+        newdoc = Document(docfile=request.FILES['file'])
+        if newdoc is not None:
             # file is saved
-            newdoc = Document(docfile=request.FILES['docfile'])
             newdoc.save()
             baseDir = os.path.dirname(os.path.abspath(__name__))
             filename = os.path.join(baseDir, newdoc.docfile.name)
-            json = tool.loadxl(filename)
-            return JsonResponse(json,safe=False)
-
+            dict = tool.loadxl(filename)
+            return JsonResponse(dict,safe=False)
     else:
-        form = DocumentForm()
-    documents = Document.objects.all()
-    return render(request, 'user/send-msg.html', {'form': form,'documents': documents})
-
+        return JsonResponse(tool.formatData(None,400,'提交数据未通过'),safe=False)
 '''========================================================='''
 #发送信息
 def sendMsg(request):
