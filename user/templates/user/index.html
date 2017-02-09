@@ -31,13 +31,31 @@
         <!-- 风格切换 -->
         {% include 'user/base-skiner.html' %}
 
-        <!-- 侧边导航栏 -->
+        <!-- 侧边导航栏 -->y
         {% include 'user/base-sidebar.html' %}
 
         <!-- 内容区域 -->
         {% include 'user/home.html' %}
     </div>
-
+    {% if datas %}
+        <h1>{{ datas }}</h1>
+        {% else %}
+        <h1> error </h1>
+    {% endif %}
+    <table>
+    {% for data in datas %}
+        <tr class="even gradeC">
+            <td id="phone">{{ data.phone }}</td>
+            <td id="name">2</td>
+            <td id="time">3</td>
+            <td id="operation">
+                <div class="tpl-table-black-operation">
+                    <a class="tpl-table-black-operation-del">删除 <i class="am-icon-trash"></i></a>
+                </div>
+            </td>
+        </tr>
+    {% endfor %}
+    </table>
     <script src="{% static "assets/js/amazeui.min.js" %}"></script>
     <script src="{% static "assets/js/amazeui.datatables.min.js" %}"></script>
     <script src="{% static "assets/js/dataTables.responsive.min.js" %}"></script>

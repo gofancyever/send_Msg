@@ -1,5 +1,6 @@
 # coding:utf-8
 from django.http import HttpResponse,HttpResponseRedirect
+from django.core.urlresolvers import reverse
 from django.shortcuts import render,render_to_response
 from .models import Document,DocumentForm,User_info
 import os
@@ -18,7 +19,7 @@ from django.http import JsonResponse
 #首页
 @login_required(login_url='/user/login/')
 def index(request):
-    return render_to_response('user/index.html',locals())
+    return render_to_response('user/index.html')
 
 
 '''========================================================='''
@@ -71,6 +72,7 @@ def validityemail(request):
 def forgetpassword(request):
     pass
 
+#上传文件
 @login_required
 def upload_file(request):
     if request.method == 'POST':
@@ -81,7 +83,15 @@ def upload_file(request):
             baseDir = os.path.dirname(os.path.abspath(__name__))
             filename = os.path.join(baseDir, newdoc.docfile.name)
             dict = tool.loadxl(filename)
-            return JsonResponse(dict,safe=False)
+            # datas = dict['data']
+            datas = [{'name': '双龙', 'phone': 18535584484.0}, {'name': '双龙', 'phone': 18535584484.0},
+                     {'name': '双龙', 'phone': 18535584484.0}, {'name': '双龙', 'phone': 18535584484.0},
+                     {'name': '双龙', 'phone': 18535584484.0}, {'name': '双龙', 'phone': 18535584484.0},
+                     {'name': '双龙', 'phone': 18535584484.0}, {'name': '双龙', 'phone': 18535584484.0},
+                     {'name': '双龙', 'phone': 18535584484.0}, {'name': '双龙', 'phone': 18535584484.0},
+                     ]
+
+            return render_to_response('user/index.html',{'datas':datas})
     else:
         return JsonResponse(tool.formatData(None,400,'提交数据未通过'),safe=False)
 '''========================================================='''
@@ -109,3 +119,13 @@ def send_msg_privte(user,msg,phone,name,time):
 
     #发送信息
     return 200
+
+
+def test(request):
+    datas = [{'name': '双龙', 'phone': 18535584484.0}, {'name': '双龙', 'phone': 18535584484.0},
+                      {'name': '双龙', 'phone': 18535584484.0}, {'name': '双龙', 'phone': 18535584484.0},
+                      {'name': '双龙', 'phone': 18535584484.0}, {'name': '双龙', 'phone': 18535584484.0},
+                      {'name': '双龙', 'phone': 18535584484.0}, {'name': '双龙', 'phone': 18535584484.0},
+                      {'name': '双龙', 'phone': 18535584484.0}, {'name': '双龙', 'phone': 18535584484.0},
+                      {'name': '双龙', 'phone': 18535584484.0}]
+    return render(request, 'user/base_test.html',{'datas':datas})

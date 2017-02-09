@@ -16,5 +16,8 @@ urlpatterns = [
     url(r'^sendmsg/$',views.sendMsg),#发送信息
     # url(r'^forgetpassword/$',views.forgetpassword),#忘记密码
 
+
     url(r'^upload',views.upload_file, name='list'),
+
+    url(r'^test/$',views.test),#发送信息
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
