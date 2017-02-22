@@ -4,10 +4,8 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 
-
-
-
 urlpatterns = [
+    url(r'^/',views.index),
     url(r'^login',views.login),#登录
     url(r'^logout',views.logout),#登出
     url(r'^validityemail',views.validityemail),#验证邮箱
